@@ -5,5 +5,5 @@ import Title from '../components/Title.vue'
 
 <template>
   <Navbar/>
-  <Title title="Encuentre aquí los productos que busca"/>
+  <Title title="Introduzca un nuevo producto"/>
 </template>
