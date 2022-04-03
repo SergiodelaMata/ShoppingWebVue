@@ -10,14 +10,17 @@ import NewProductPage from './components/NewProductPage.vue'
 const routes = [
     {
         path: "",
+        name: "HomePage",
         component: HomePage
     },
     {
         path: "/newCategory",
+        name: "NewCategoryPage",
         component: NewCategoryPage
     },
     {
         path: "/newProduct",
+        name: "NewProductPage",
         component: NewProductPage
     }
 ];
