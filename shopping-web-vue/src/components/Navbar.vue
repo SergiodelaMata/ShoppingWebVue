@@ -5,22 +5,6 @@ var session = defineProps({
     required: true
   }
 });
-/*var methods = computed({
-    isLoggedAdmin() {
-    if(user.userEmail !== '' && user.userRole === 'admin')
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-  }
-
-})
-console.log(methods);*/
-console.log(session.user);
-
 </script>
 <script>
 export default {
