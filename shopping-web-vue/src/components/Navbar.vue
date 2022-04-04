@@ -1,7 +1,12 @@
 <script setup>
+import FormLogin from "../components/FormLogin.vue"
 var session = defineProps({
   user: {
     type: Object,
+    required: true
+  },
+  users: {
+    type: Array,
     required: true
   }
 });
@@ -49,7 +54,13 @@ export default {
           <a id="newProductA" class="nav-link" href="/newProduct" v-if="session.user.userEmail !== '' && session.user.userRole === 'admin' ? true : false" @click="obtainPage('newProduct')">Nuevo producto</a>
         </li>
       </ul>
-      <ul id="loginlogout" class="nav navbar-nav flex-row justify-content-center ml-auto">
+      <ul id="loginlogout" class="nav navbar-nav flex-row justify-content-center ml-auto" style="margin-right:1em">
+        <li>
+          <FormLogin v-bind:user="session.user" v-bind:users="session.users"></FormLogin>
+        </li>
+        <li>
+          <button id="logout" type="button" class='btn btn-outline-secondary' v-bind:style="styleButton">Logout</button>
+        </li>
       </ul>
     </div>
 

@@ -26,6 +26,6 @@ export default{
 </script>
 
 <template>
-  <Navbar v-bind:user="user"/>
+  <Navbar v-bind:user="user" v-bind:users="users"/>
   <Title title="Encuentre aquí los productos que busca"/>
 </template>
