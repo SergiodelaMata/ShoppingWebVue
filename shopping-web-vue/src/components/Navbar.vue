@@ -24,11 +24,46 @@ export default {
     }
   },
   methods: {
-    logout: function() {
+    logout: function() 
+    {
       sessionStorage.removeItem('email');
       sessionStorage.removeItem('role');
-      location.reload();
+      window.location.href = "/";
+    },
+    setStylePageSelected: function() 
+    {
+      const pathname = window.location.pathname;
+      var homeA = document.getElementById("homeA");
+      var newCategoryA = document.getElementById("newCategoryA");
+      var newProductA = document.getElementById("newProductA");
+
+      switch(pathname)
+      {
+        case "/":
+          homeA.classList.add("active");
+          newCategoryA.classList.remove("active");
+          newProductA.classList.remove("active");
+          break;
+        case "/newCategory":
+          homeA.classList.remove("active");
+          newCategoryA.classList.add("active");
+          newProductA.classList.remove("active");
+          break;
+        case "/newProduct":
+          homeA.classList.remove("active");
+          newCategoryA.classList.remove("active");
+          newProductA.classList.add("active");
+          break;
+        default:
+          homeA.classList.remove("active");
+          newCategoryA.classList.remove("active");
+          newProductA.classList.remove("active");
+          break;
+      }
     }
+  },
+  mounted() {
+    this.setStylePageSelected();
   }
 }
 </script>
@@ -47,13 +82,13 @@ export default {
     <div class="collapse navbar-collapse navbar-div" id="navbarSupportedContent">
       <ul id="buttonsNavbar" class="navbar-nav me-auto">
         <li class="nav-item" v-bind:style="styleButton">
-          <a class="nav-link active" href="/" @click="obtainPage('Home')">Home</a>
+          <a ref="homeA" id="homeA" class="nav-link" href="/">Home</a>
         </li>
         <li id="newCategory" class="nav-item" v-bind:style="styleButton">
-          <a id="newCategoryA" class="nav-link" href="/newCategory" v-if="session.user.userEmail !== '' && session.user.userRole === 'admin' ? true : false" @click="obtainPage('newCategory')">Nueva categoría</a>
+          <a ref="newCategoryA" id="newCategoryA" class="nav-link" href="/newCategory" v-if="session.user.userEmail !== '' && session.user.userRole === 'admin' ? true : false">Nueva categoría</a>
         </li>
         <li id="newProduct" class="nav-item" v-bind:style="styleButton">
-          <a id="newProductA" class="nav-link" href="/newProduct" v-if="session.user.userEmail !== '' && session.user.userRole === 'admin' ? true : false" @click="obtainPage('newProduct')">Nuevo producto</a>
+          <a ref="newProductA" id="newProductA" class="nav-link" href="/newProduct" v-if="session.user.userEmail !== '' && session.user.userRole === 'admin' ? true : false">Nuevo producto</a>
         </li>
       </ul>
       <ul id="loginlogout" class="nav navbar-nav flex-row justify-content-center ml-auto" style="margin-right:1em">
