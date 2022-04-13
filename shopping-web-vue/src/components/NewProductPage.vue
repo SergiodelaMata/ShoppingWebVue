@@ -1,6 +1,7 @@
 <script setup>
 import Navbar from '../components/Navbar.vue'
 import Title from '../components/Title.vue'
+import FormNewProduct from '../components/FormNewProduct.vue'
 import data from '../js/data.js'
 </script>
 <script>
@@ -28,4 +29,5 @@ export default{
 <template>
   <Navbar v-bind:user="user" v-bind:users="users"/>
   <Title title="Introduzca un nuevo producto"/>
+  <FormNewProduct v-bind:products="products" v-bind:categories="categories"/>
 </template>
