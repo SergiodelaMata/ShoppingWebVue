@@ -20,12 +20,23 @@ export default {
     }
   },
   methods: {
-    obtainPage: function(message) {
+    submit: function(message) {
       alert('Hola ' + message);
     },
     show: function()
     {
+      var dropdownMenuButton = this.$refs.dropdownMenuButton;
       var dropdownMenu = this.$refs.dropdownMenu;
+
+      if(dropdownMenuButton.classList.contains("show"))
+      {
+        dropdownMenuButton.classList.remove("show");
+      }
+      else
+      {
+        dropdownMenuButton.classList.add("show");
+        dropdownMenuButton.classList.remove("hidden");
+      }
 
       if(dropdownMenu.classList.contains("show"))
       {
@@ -34,17 +45,19 @@ export default {
       else
       {
         dropdownMenu.classList.add("show");
+        dropdownMenu.classList.remove("hidden");
       }
     }
   }
 }
 </script>
 
+
 <template>
   <li class="dropdown order-1">
-    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" @click="show" v-bind:style="styleButton">Login</button>
+    <button ref="dropdownMenuButton" id="dropdown-menu-button" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" @click="show" v-bind:style="styleButton">Login</button>
     <ul ref="dropdownMenu" id="dropdown-menu" class="dropdown-menu dropdown-menu-right" style="margin-right: '3em'; color: 'dark'">
-      <form id='dropdown-menu' class='form'>
+      <form id='dropdown-menu-form' class='form'>
         <div class='form-group container'>
           <input id='emailInput' class='form-control form-control-sm' placeholder='Email' type='text' required/>
         </div>

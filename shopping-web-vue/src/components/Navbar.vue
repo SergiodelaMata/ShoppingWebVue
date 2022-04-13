@@ -56,10 +56,10 @@ export default {
       </ul>
       <ul id="loginlogout" class="nav navbar-nav flex-row justify-content-center ml-auto" style="margin-right:1em">
         <li>
-          <FormLogin v-bind:user="session.user" v-bind:users="session.users"></FormLogin>
+          <FormLogin v-bind:user="session.user" v-if="session.user.userEmail === ''" v-bind:users="session.users"></FormLogin>
         </li>
         <li>
-          <button id="logout" type="button" class='btn btn-outline-secondary' v-bind:style="styleButton">Logout</button>
+          <button id="logout" type="button" class='btn btn-outline-secondary' v-if="session.user.userEmail !== ''" v-bind:style="styleButton">Logout</button>
         </li>
       </ul>
     </div>

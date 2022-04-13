@@ -1,15 +1,13 @@
-.dropdown .dropdown-menu {
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
-
-    display: block;
-    overflow: hidden;
-    opacity: 0;
+@media screen and (max-width: 576px)
+{
+    #dropdown-menu-button.show{
+        margin-left: 4em;
+    }
 }
 
-.dropdown.show .dropdown-menu {
-    overflow: visible;
-    opacity: 1;
+@media screen and (min-width: 576px)
+{
+    #dropdown-menu{
+        margin-left: -7em;
+    }
 }
