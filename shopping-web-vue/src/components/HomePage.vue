@@ -1,6 +1,7 @@
 <script setup>
 import Navbar from '../components/Navbar.vue'
 import Title from '../components/Title.vue'
+import HomeBody from '../components/HomeBody.vue'
 import data from '../js/data.js'
 </script>
 <script>
@@ -28,4 +29,5 @@ export default{
 <template>
   <Navbar v-bind:user="user" v-bind:users="users"/>
   <Title title="Encuentre aquí los productos que busca"/>
+  <HomeBody v-bind:products="products" v-bind:categories="categories" v-bind:productsInBag="productsInBag"/>
 </template>
