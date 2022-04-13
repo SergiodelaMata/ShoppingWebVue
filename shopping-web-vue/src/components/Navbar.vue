@@ -24,8 +24,10 @@ export default {
     }
   },
   methods: {
-    obtainPage: function(message) {
-      alert('Hola ' + message);
+    logout: function() {
+      sessionStorage.removeItem('email');
+      sessionStorage.removeItem('role');
+      location.reload();
     }
   }
 }
@@ -59,7 +61,7 @@ export default {
           <FormLogin v-bind:user="session.user" v-if="session.user.userEmail === ''" v-bind:users="session.users"></FormLogin>
         </li>
         <li>
-          <button id="logout" type="button" class='btn btn-outline-secondary' v-if="session.user.userEmail !== ''" v-bind:style="styleButton">Logout</button>
+          <button id="logout" type="button" class='btn btn-outline-secondary' @click="logout" v-if="session.user.userEmail !== ''" v-bind:style="styleButton">Logout</button>
         </li>
       </ul>
     </div>
