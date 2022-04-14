@@ -41,8 +41,14 @@ export default {
       {
         case "/":
           homeA.classList.add("active");
-          newCategoryA.classList.remove("active");
-          newProductA.classList.remove("active");
+          if(newCategoryA != null)
+          {
+            newCategoryA.classList.remove("active");
+          }
+          if(newProductA != null)
+          {
+            newProductA.classList.remove("active");
+          }
           break;
         case "/newCategory":
           homeA.classList.remove("active");
