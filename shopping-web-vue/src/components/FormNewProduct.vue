@@ -28,6 +28,11 @@ export default {
         var numUnits = this.$refs.numUnits.value;
         var image = this.$refs.image.value;
         var products = JSON.parse(this.$refs.products.innerHTML);
+        var lengthCode = 14 - codeProduct.length;
+        for(let i = 0; i < lengthCode; i++)
+        {
+            codeProduct = "0" + codeProduct;
+        }
 
         //En caso de no seleccionar ninguna de las categorías disponibles, se avisa al usuario de ello
         if(idCategory === "-")
@@ -75,7 +80,7 @@ export default {
                 </div>
                 <form id="formCategory" class="form" @submit="productSubmit">
                     <div class="form-group container col-sm-12 d-none">
-                        <input ref="codeProduct" id="codeProduct" type="text" value={this.setValueNewProduct()} readOnly/>
+                        <input ref="codeProduct" id="codeProduct" type="text" v-bind:value="(data.products.length + 1)" readOnly/>
                         <p ref="products" style="display:none">{{ data.products }}</p>
                     </div>
                     <div class="form-group container col-sm-12" style="margin-top: 1em">
