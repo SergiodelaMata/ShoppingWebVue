@@ -33,7 +33,7 @@ export default{
         </h5>
         <div v-bind:id="('products' + (data.category.idCategory + 1))" class='container accordion-collapse collapse show' v-bind:aria-labelledby="('category' + (data.category.idCategory + 1))">
             <div v-bind:id="('listProducts' + (data.category.idCategory + 1))" class='row' style="margin-top: 0.5em; margin-bottom: 0.5em">
-                <Product v-for="product in data.products" v-bind:category="data.category" v-bind:product="product" v-bind:productsInBag="data.productsInBag"></Product>
+                <Product v-for="product in data.products" v-bind:category="data.category" v-bind:product="product" v-bind:products="data.products" v-bind:productsInBag="data.productsInBag"></Product>
           </div>
         </div>
     </div>
