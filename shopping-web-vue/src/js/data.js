@@ -23,9 +23,10 @@ if( localStorage.categories !== "" && localStorage.categories !== null && localS
 
   var productsInBag = JSON.parse(localStorage.productsInBag);
 
-  if(localStorage.productsInBag === null || localStorage.productsInBag === undefined)
+  if(localStorage.productsInBag === null || localStorage.productsInBag === undefined || localStorage.productsInBag === "")
   {
     localStorage.setItem("productsInBag", JSON.stringify([]));
+    productsInBag = JSON.parse(localStorage.productsInBag);
   }
 }
 else
@@ -48,15 +49,15 @@ var user = {
 }
 
 export default{
-    data() {
-        return {
-            props: {
-                user: user,
-                products: products,
-                categories: categories,
-                users: users,
-                productsInBag: productsInBag
-            }
-        }
-    }
+  data() {
+      return {
+          props: {
+              user: user,
+              products: products,
+              categories: categories,
+              users: users,
+              productsInBag: productsInBag
+          }
+      }
+  }
 }

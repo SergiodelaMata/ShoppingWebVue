@@ -11,6 +11,9 @@ var products = props.products;
 var categories = props.categories;
 var users = props.users;
 var productsInBag = props.productsInBag;
+if(productsInBag === undefined || productsInBag === null || productsInBag === ""){
+    productsInBag = [];
+} 
 export default{
     data() {
         return {
