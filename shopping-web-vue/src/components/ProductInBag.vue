@@ -23,6 +23,8 @@ export default{
   methods: {
     addProduct : function(codeProduct, products, productsInBag) {
       var unitsProduct = this.$refs.unitsProduct;
+      var image = this.$refs.imageProduct;
+      image.style.opacity = "1";
       const product = products.filter(products => products.codeProduct === codeProduct)[0];
       //Se comprueba que el producto cuenta con unidades
       if(product.numUnits !== 0)
@@ -73,6 +75,7 @@ export default{
               else if(product.numUnits - 1 === 0)
               {
                 var buttonPlus = this.$refs.refPlusCodeProduct;
+                image.style.opacity = "0.5";
                 buttonPlus.disabled = true;
                 let indexBag = productsInBag.findIndex( product => product.codeProduct === codeProduct);
                 const productInBagUpdated = {
@@ -105,6 +108,7 @@ export default{
               //En el caso de no cumplirse los casos anteriores, simplemente se deshabilita el botón para añadir a la cesta
               else
               {
+                image.style.opacity = "0.5";
                 buttonPlus.disabled = true;
               }
           }
@@ -172,15 +176,17 @@ export default{
       }
       else
       {
+        image.style.opacity = "0.5";
         buttonPlus.disabled = true;
       }
+      this.emitter.emit('setImageOpacity', image.getAttribute("codeproduct"));
       this.emitter.emit('reloadCategoriesList');
       this.emitter.emit('getTotalPrice');
 
     },
     removeProduct : function(codeProduct, products, productsInBag) {
-      //var productsInBag = JSON.parse(this.$refs.refMinusCodeProduct.getAttribute("productsinbag"));
-      //console.log(productsInBag);
+      var image = this.$refs.imageProduct;
+      image.style.opacity = "1";
       var unitsProduct = this.$refs.unitsProduct;
       const indexNotInBag = products.findIndex(product => product.codeProduct === codeProduct);
       const productInBag = productsInBag.filter(product => product.codeProduct === codeProduct)[0];
@@ -239,15 +245,17 @@ export default{
         unitsProduct.setAttribute("numunits", productsInBag[index].numUnits);
         unitsProduct.innerHTML = "Unidades: " + productsInBag[index].numUnits;
       }
+      this.emitter.emit('setProduct', image.getAttribute("codeproduct"));
       this.emitter.emit('reloadCategoriesList');
       this.emitter.emit('getTotalPrice');
     },
     checkPlusButton : function()
     {
+      var image = this.$refs.imageProduct;
       var button = this.$refs.refPlusCodeProduct;
       //Se comprueba si esta elaborando el botón para añadir a la cesta. 
       //Éste no se genera si el producto no pertenece a la categoría en la que se está elaborando
-      if(button !== undefined)
+      if(image !== undefined && button !== undefined)
       {
         var codeProduct = button.getAttribute("codeProduct");
         var products = JSON.parse(button.getAttribute("products"));
@@ -255,10 +263,12 @@ export default{
         //Si el número de unidades es 0, el botón se deshabilita
         if(product.numUnits === 0)
         {
+          image.style.opacity = "0.5";
           button.disabled = true;
         }
         else
         {
+          image.style.opacity = "1";
           button.disabled = false;
         }
       }
@@ -275,7 +285,7 @@ export default{
   <div class='card col-sm-12 col-md-12 col-lg-12' style="margin-top: 0.5em">
     <div class='row'>
       <div class='align-self-center col-sm-12 col-md-6 col-lg-5' style="text-align: center">
-          <img class='zoom img-product-bag' v-bind:id="'imageProduct' + data.productInBag.codeproduct" v-bind:src="data.productInBag.image" v-bind:alt="data.productInBag.titleProduct" v-bind:title="data.productInBag.titleProduct" style="margin-top: 1em, opacity: 1"/>
+          <img ref="imageProduct" class='zoom img-product-bag' v-bind:id="'imageProduct' + data.productInBag.codeproduct" v-bind:src="data.productInBag.image" v-bind:alt="data.productInBag.titleProduct" v-bind:title="data.productInBag.titleProduct" v-bind:codeProduct="data.productInBag.codeProduct" style="margin-top: 1em, opacity: 1"/>
           <div class='container'>
             <div class='row' style="margin-top: 0.5em">
               <div class='col-sm-12 col-md-12 col-lg-12'>
