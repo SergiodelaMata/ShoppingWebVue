@@ -18,10 +18,10 @@ var data = defineProps({
 </script>
 <script>
 export default{
-    data() {
-        return {
-        }
+  data() {
+    return {
     }
+  }
 }
 
 </script>

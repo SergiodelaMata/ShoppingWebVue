@@ -25,6 +25,17 @@ export default{
                 productsInBag: productsInBag
             }
         }
+    },
+    methods: {
+        reloadHomePage() {
+            this.props.productsInBag = JSON.parse(localStorage.productsInBag);
+            this.$forceUpdate();
+        }
+    },
+    mounted() {
+        this.emitter.on('reloadHomePage', () => {
+            this.reloadHomePage();
+        })
     }
 }
 </script>

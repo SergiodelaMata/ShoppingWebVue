@@ -17,10 +17,22 @@ var data = defineProps({
 </script>
 <script>
 export default{
-    data() {
-        return {
-        }
+  data() {
+    return {
     }
+  },
+  methods: {
+    reloadCategoriesList() {
+      this.$forceUpdate();
+    }
+  },
+  mounted() {
+    this.emitter.on('reloadCategoriesList', () => {
+      this.reloadCategoriesList();
+      this.emitter.emit('reloadCategory');
+      this.emitter.emit('reloadBag');
+    })
+  }
 }
 </script>
 

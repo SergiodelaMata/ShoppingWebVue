@@ -27,7 +27,6 @@ export default{
   methods: {
     addProduct : function(codeProduct, products, productsInBag) {
       var unitsProduct = this.$refs.unitsProduct;
-      console.log(unitsProduct.getAttribute("numunits"));
 
       const product = products.filter(products => products.codeProduct === codeProduct)[0];
       //Se comprueba que el producto cuenta con unidades
@@ -206,31 +205,45 @@ export default{
           button.disabled = false;
         }
       }
+    },
+    reloadProduct(codeProduct) {
+      var refUnitsProduct = this.$refs.unitsProduct;
+      if(refUnitsProduct !== undefined && refUnitsProduct !== null && refUnitsProduct.getAttribute("codeproduct") === codeProduct)
+      {
+        var products = JSON.parse(localStorage.products);
+        var product = products.find( product => product.codeProduct === codeProduct);
+        refUnitsProduct.setAttribute("numunits", "Unidades: " + product.numUnits);
+        refUnitsProduct.innerHTML = "Unidades: " + product.numUnits;
+      }
     }
   },
   mounted()
   {
     this.checkButton();
+    this.emitter.on('reloadProduct', codeProduct => {
+      this.reloadProduct(codeProduct);
+      this.emitter.emit('getTotalPrice');
+    })
   }
 }
 </script>
 
 <template>
-    <div v-if="data.category.idCategory === data.product.idCategory" class='card col-sm-6' style="margin-bottom:'0.5em'"> 
-        <div class='row'>
-            <div class='col-lg-4 col-md-6 col-sm-12 align-self-center' style="text-align: center">
-                <img class='zoom img-product' v-bind:id="'imageProduct' + data.product.codeproduct" v-bind:src="data.product.image" v-bind:alt="data.product.titleProduct" v-bind:title="data.product.titleProduct" style="opacity: 1; margin-top: 1em"/>
-                <p ref="unitsProduct" v-bind:id="'unitsProduct' + data.product.codeProduct" v-bind:numUnits="data.product.numUnits" style="font-size: 0.8em"> Unidades: {{data.product.numUnits}}</p>
-                <h3 class='text-primary'>{{data.product.price}} €</h3>
-                <button ref="buttonProduct" v-bind:id="'buttonProduct' + data.product.codeProduct" v-bind:codeProduct="data.product.codeProduct" v-bind:products="JSON.stringify(data.products)" class='btn btn-primary' type='button' @click="addProduct(data.product.codeProduct, data.products, data.productsInBag)" style="width: 100%; margin-bottom: 1em; font-size: 0.8em" title='Añadir a la cesta'>Añadir a <br/> la cesta</button>
-            </div>
-            <div class='card-body col-lg-8 col-md-6 col-sm-12'>
-                <p style="text-align:'center'">
-                    <strong> {{data.product.titleProduct}} </strong>
-                </p>
-                <p class='text-muted' style="text-align:'left', fontSize:'0.8em'">{{data.product.codeProduct}}</p>
-                <p style="text-align:'left', fontSize:'0.8em'">{{data.product.description}}</p>
-            </div>
-        </div>
+  <div v-if="data.category.idCategory === data.product.idCategory" class='card col-sm-6' style="margin-bottom:'0.5em'"> 
+    <div class='row'>
+      <div class='col-lg-4 col-md-6 col-sm-12 align-self-center' style="text-align: center">
+          <img class='zoom img-product' v-bind:id="'imageProduct' + data.product.codeproduct" v-bind:src="data.product.image" v-bind:alt="data.product.titleProduct" v-bind:title="data.product.titleProduct" style="opacity: 1; margin-top: 1em"/>
+          <p ref="unitsProduct" v-bind:id="'unitsProduct' + data.product.codeProduct" v-bind:codeProduct="data.product.codeProduct" v-bind:numUnits="data.product.numUnits" style="font-size: 0.8em"> Unidades: {{data.product.numUnits}}</p>
+          <h3 class='text-primary'>{{data.product.price}} €</h3>
+          <button ref="buttonProduct" v-bind:id="'buttonProduct' + data.product.codeProduct" v-bind:codeProduct="data.product.codeProduct" v-bind:products="JSON.stringify(data.products)" class='btn btn-primary' type='button' @click="addProduct(data.product.codeProduct, data.products, data.productsInBag)" style="width: 100%; margin-bottom: 1em; font-size: 0.8em" title='Añadir a la cesta'>Añadir a <br/> la cesta</button>
+      </div>
+      <div class='card-body col-lg-8 col-md-6 col-sm-12'>
+          <p style="text-align:'center'">
+              <strong> {{data.product.titleProduct}} </strong>
+          </p>
+          <p class='text-muted' style="text-align:'left', fontSize:'0.8em'">{{data.product.codeProduct}}</p>
+          <p style="text-align:'left', fontSize:'0.8em'">{{data.product.description}}</p>
+      </div>
     </div>
+  </div>
 </template>

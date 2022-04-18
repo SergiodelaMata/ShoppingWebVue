@@ -38,7 +38,7 @@ export default{
         </div>
         <div id="bag-products" style="margin-top: 1em">
             <TotalCost v-bind:productsInBag="data.productsInBag"></TotalCost>
-            <ProductInBag v-for="ProductInBag in data.productsInBag" v-bind:productInBag="ProductInBag" v-bind:products="data.products"></ProductInBag>
+            <ProductInBag v-for="ProductInBag in data.productsInBag" v-bind:productInBag="ProductInBag" v-bind:productsInBag="data.productsInBag" v-bind:products="data.products"></ProductInBag>
         </div>
     </div>
 </template>
