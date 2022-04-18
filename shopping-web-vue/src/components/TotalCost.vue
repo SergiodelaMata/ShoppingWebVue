@@ -59,11 +59,11 @@ export default{
   <div className='card'>
     <div className='row'>
       <div className='col-sm-12 col-md-6 col-lg-6'>
-        <h5 style="margin-left: 0.5em, margin-top: 0.5em, margin-bottom: 0.5em">Coste Total:</h5>
+        <h5 style="margin-left: 0.5em; margin-top: 0.5em; margin-bottom: 0.5em">Coste Total:</h5>
         <p ref="productsInBag" style="display:none">{{JSON.stringify(data.productsInBag)}}</p>
       </div>
       <div className='col-sm-12 col-md-6 col-lg-6' style="textAlign: right">
-        <p ref="totalPrice" style="margin-right: 0.5em, margin-top: 0.5em, margin-bottom: 0.5em"><!--{totalPrice}--> €</p>
+        <p ref="totalPrice" style="margin-right: 0.5em; margin-top: 0.5em; margin-bottom: 0.5em"> 0 €</p>
       </div>
       <div className='col-sm-12 col-md-12 col-lg-12' style="width: 100%">
         <button ref="buttonTotalCost" className='btn btn-primary' type='button' title='Realizar pedido' @click="this.setPopUp" style="width: 100%">Realizar pedido</button>

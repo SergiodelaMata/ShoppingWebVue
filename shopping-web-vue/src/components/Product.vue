@@ -273,8 +273,8 @@ export default{
           <p style="text-align:'center'">
               <strong> {{data.product.titleProduct}} </strong>
           </p>
-          <p class='text-muted' style="text-align:'left', fontSize:'0.8em'">{{data.product.codeProduct}}</p>
-          <p style="text-align:'left', fontSize:'0.8em'">{{data.product.description}}</p>
+          <p class='text-muted' style="text-align: left; font-size: 0.8em">{{data.product.codeProduct}}</p>
+          <p style="text-align:'left'; font-size: 0.8em">{{data.product.description}}</p>
       </div>
     </div>
   </div>

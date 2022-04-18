@@ -289,7 +289,7 @@ export default{
           <div class='container'>
             <div class='row' style="margin-top: 0.5em">
               <div class='col-sm-12 col-md-12 col-lg-12'>
-                <p ref="unitsProduct" v-bind:id="'unitsProduct' + data.productInBag.codeProduct" v-bind:numUnits="data.productInBag.numUnits" style="text-align: center, font-size: 1em">Unidades: {{data.productInBag.numUnits}}</p>
+                <p ref="unitsProduct" v-bind:id="'unitsProduct' + data.productInBag.codeProduct" v-bind:numUnits="data.productInBag.numUnits" style="text-align: center; font-size: 1em">Unidades: {{data.productInBag.numUnits}}</p>
                 <button ref="refMinusCodeProduct" class='btn btn-primary col-sm-12 col-md-6 col-lg-6' type='button' title='Eliminar de la cesta' @click="this.removeProduct(data.productInBag.codeProduct, data.products, data.productsInBag)" style="border-color: black">
                   <img class='icon-element' alt='Eliminar una unidad del producto' title='Eliminar una unidad del producto' src="../img/dash.svg"/>
                 </button>
@@ -305,10 +305,10 @@ export default{
         <p style="text-align: left">
           <strong>{{data.productInBag.titleProduct}}</strong>
         </p>
-        <p class='text-muted' style="font-size: 0.8em, text-align: left">
+        <p class='text-muted' style="font-size: 0.8em; text-align: left">
           {{data.productInBag.codeProduct}}
         </p>
-        <p style="font-size: 0.8em, text-align: left">
+        <p style="font-size: 0.8em; text-align: left">
           {{data.productInBag.description}}
         </p>
         
