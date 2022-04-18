@@ -46,6 +46,11 @@ export default{
   },
   mounted() {
     this.getTotalPrice();
+    this.emitter.on('getTotalPrice', () => {
+      var productsInBag = localStorage.productsInBag;
+      this.$refs.productsInBag.innerHTML = productsInBag;
+      this.getTotalPrice();
+    })
   }
 }
 </script>
