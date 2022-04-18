@@ -9,6 +9,7 @@ import './css/popup.css'
 import HomePage from './components/HomePage.vue'
 import NewCategoryPage from './components/NewCategoryPage.vue'
 import NewProductPage from './components/NewProductPage.vue'
+import mitt from 'mitt';
 
 const routes = [
     {
@@ -33,6 +34,9 @@ const router = createRouter({
     routes
 });
 
-createApp(App)
-.use(router)
-.mount('#app')
+const emitter = mitt();
+
+const app = createApp(App)
+app.config.globalProperties.emitter = emitter;
+app.use(router);
+app.mount('#app');
