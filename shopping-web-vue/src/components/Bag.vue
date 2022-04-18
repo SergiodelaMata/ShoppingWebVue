@@ -14,10 +14,20 @@ var data = defineProps({
 </script>
 <script>
 export default{
-    data() {
-        return {
-        }
+  data() {
+      return {
+      }
+  },
+  methods: {
+    reloadBag() {
+      this.$forceUpdate();
     }
+  },
+  mounted() {
+    this.emitter.on('reloadBag', () => {
+      this.reloadBag();
+    })
+  }
 }
 </script>
 

@@ -183,6 +183,8 @@ export default{
         var button = this.$refs.buttonProduct;
         button.disabled = true;
       }
+      this.emitter.emit('reloadBag');
+      this.emitter.emit('getTotalPrice');
     },
     checkButton : function()
     {
