@@ -188,7 +188,8 @@ export default{
       }
       this.emitter.emit('reloadBag');
       this.emitter.emit('getTotalPrice');
-      this.$forceUpdate();
+      this.setProduct(codeProduct);
+      this.emitter.emit('checkPlusButton');
     },
     checkButton : function()
     {
@@ -244,11 +245,26 @@ export default{
           refButtonProduct.disabled = false;
         }
       }
+    },
+    setTextNoUnits: function() {
+      var unitsProduct = this.$refs.unitsProduct;
+      if(unitsProduct !== undefined && unitsProduct !== null && unitsProduct.getAttribute("numunits") === "0")
+      {
+        var codeProduct = unitsProduct.getAttribute("codeproduct");
+        var productsInBag = JSON.parse(localStorage.productsInBag);
+        var productInBag = productsInBag.find( product => product.codeProduct === codeProduct);
+        if(productInBag === undefined || productInBag === null)
+        {
+          unitsProduct.innerHTML = "No hay stock";
+          unitsProduct.classList.add("bg-danger");
+        }
+      }
     }
   },
   mounted()
   {
     this.checkButton();
+    this.setTextNoUnits();
     this.emitter.on('reloadProduct', codeProduct => {
       this.reloadProduct(codeProduct);
       this.emitter.emit('getTotalPrice');
