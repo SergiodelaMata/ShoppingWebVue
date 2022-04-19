@@ -42,6 +42,23 @@ export default{
       {
         buttonTotalCost.disabled = false;
       }
+    },
+    getTotalPriceResult: function()
+    {
+      var productsInBag = JSON.parse(this.$refs.productsInBag.innerHTML);
+      var totalPrice = 0;
+      for(var i = 0; i < productsInBag.length; i++)
+      {
+        totalPrice += productsInBag[i].price * productsInBag[i].numUnits;
+      }
+      totalPrice = Math.round(totalPrice * 100) / 100;
+      return totalPrice;
+    },
+    setPopUp: function() 
+    {
+      var totalPrice = this.getTotalPriceResult();
+      localStorage.setItem('overlay', true);
+      this.emitter.emit('setTotalPrice', totalPrice);
     }
   },
   mounted() {

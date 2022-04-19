@@ -7,6 +7,9 @@ var categories = [];
 var products = [];
 var users = [];
 
+var overlay = false;
+localStorage.setItem('overlay', overlay);
+
 if(userEmail === null || userEmail === undefined || userRole === null || userRole === undefined)
 {
   userEmail = "";
