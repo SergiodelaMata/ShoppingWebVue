@@ -325,10 +325,10 @@ export default{
           <div class='row' v-bind:style="marginTop">
             <div class='col-sm-12 col-md-12 col-lg-12'>
               <p ref="unitsProduct" v-bind:id="'unitsProduct' + data.productInBag.codeProduct" v-bind:numUnits="data.productInBag.numUnits" v-bind:style="fontSizeMedium">Unidades: {{data.productInBag.numUnits}}</p>
-              <button ref="refMinusCodeProduct" class='btn btn-primary col-sm-12 col-md-6 col-lg-6' type='button' title='Eliminar de la cesta' @click="this.removeProduct(data.productInBag.codeProduct, data.products, data.productsInBag)" v-bind:style="borderColorBlack">
+              <button ref="refMinusCodeProduct" class='btn btn-primary col-button-sm col-sm-12 col-md-6 col-lg-6' type='button' title='Eliminar de la cesta' @click="this.removeProduct(data.productInBag.codeProduct, data.products, data.productsInBag)" v-bind:style="borderColorBlack">
                 <img class='icon-element' alt='Eliminar una unidad del producto' title='Eliminar una unidad del producto' src="../img/dash.svg"/>
               </button>
-              <button ref="refPlusCodeProduct" class='btn btn-primary col-sm-12 col-md-6 col-lg-6' type='button' title='Agregar a la cesta' v-bind:codeProduct="data.productInBag.codeProduct" v-bind:products="JSON.stringify(data.products)" @click="this.addProduct(data.productInBag.codeProduct, data.products, data.productsInBag)" v-bind:style="borderColorBlack">
+              <button ref="refPlusCodeProduct" class='btn btn-primary col-button-sm col-sm-12 col-md-6 col-lg-6' type='button' title='Agregar a la cesta' v-bind:codeProduct="data.productInBag.codeProduct" v-bind:products="JSON.stringify(data.products)" @click="this.addProduct(data.productInBag.codeProduct, data.products, data.productsInBag)" v-bind:style="borderColorBlack">
                 <img class='icon-element' alt='Añadir una unidad del producto' title='Añadir una unidad del producto' src="../img/plus.svg"/>
               </button>
             </div>

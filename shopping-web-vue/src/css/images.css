@@ -23,6 +23,13 @@
     }
 }
 
+@media screen and (min-width: 500px) and (max-width: 576px)
+{
+    .col-button-sm{
+        width: 100%;
+    }
+}
+
 @media screen and (min-width: 600px)
 {
     .zoom:hover{
