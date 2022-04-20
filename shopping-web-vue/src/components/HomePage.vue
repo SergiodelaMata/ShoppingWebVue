@@ -24,7 +24,10 @@ export default{
                 categories: categories,
                 users: users,
                 productsInBag: productsInBag
-            }
+            },
+            displayNone: {
+                display: 'none'
+            },
         }
     },
     methods: {
@@ -58,7 +61,7 @@ export default{
 <template>
     <Navbar v-bind:user="user" v-bind:users="users"/>
     <Title title="Encuentre aquí los productos que busca"/>
-    <div ref="overlay" class="overlay" id="overlay" style="display:none">
+    <div ref="overlay" class="overlay" id="overlay" v-bind:style="displayNone">
         <PopUp></Popup>
     </div>
     <HomeBody v-bind:products="products" v-bind:categories="categories" v-bind:productsInBag="productsInBag"/>

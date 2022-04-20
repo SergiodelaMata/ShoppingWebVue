@@ -6,7 +6,18 @@ defineProps({
   }
 })
 </script>
+<script>
+export default{
+  data() {
+    return {
+      textAlignCenter: {
+        textAlign: 'center'
+      }
+    }
+  }
+}
+</script>
 
 <template>
-  <h1 style="text-align:center" >{{ title }}</h1>
+  <h1 v-bind:style="textAlignCenter" >{{ title }}</h1>
 </template>

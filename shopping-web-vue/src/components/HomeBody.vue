@@ -20,6 +20,13 @@ var data = defineProps({
 export default{
   data() {
     return {
+      marginBottom: {
+        marginBottom: '2em'
+      },
+      lateralMargin: {
+        marginLeft: '2em',
+        marginRight: '2em'
+      },
     }
   }
 }
@@ -27,8 +34,8 @@ export default{
 </script>
 
 <template>
-    <div class="container d-flex flex-column justify-content-center col-sm-12" style="margin-bottom: 2em">
-        <div class="row" style="margin-left: 2em; margin-right: 2em">
+    <div class="container d-flex flex-column justify-content-center col-sm-12" v-bind:style="marginBottom">
+        <div class="row" v-bind:style="lateralMargin">
             <CategoriesList v-bind:categories="data.categories" v-bind:products="data.products" v-bind:productsInBag="data.productsInBag"></CategoriesList>
             <Bag v-bind:products="data.products" v-bind:productsInBag="data.productsInBag"></Bag>
         </div>

@@ -22,9 +22,46 @@ var data = defineProps({
 export default{
   data() {
     return {
+      textAlignCenter: {
+        textAlign: 'center'
+      },
+      textAlignLeft: {
+        textAlign: 'left'
+      },
+      fontSizeSmall: {
+        fontSize: '0.8em'
+      },
+      marginTop: {
+        marginTop: '0.5em'
+      },
+      marginBottomSmall: {
+        marginBottom: '0.5em'
+      },
+      marginBottomMedium: {
+        marginBottom: '1em'
+      },
+      fullWidth: {
+        width: '100%'
+      },
+      opacityTrue: {
+        opacity: 1
+      },
+      stylePTag: {
+        textAlign: 'left',
+        fontSize: '0.8em'
+      },
+      styleImage: {
+        marginTop: '1em'
+      },
+      styleButtonAddBag: {
+        width: '100%', 
+        marginBottom: '1em', 
+        fontSize: '0.8em'
+      }
     }
   },
   methods: {
+    //Se encarga de añadir un producto al carrito de compras
     addProduct : function(codeProduct, products, productsInBag) {
       var unitsProduct = this.$refs.unitsProduct;
       var image = this.$refs.imageProduct;
@@ -191,6 +228,7 @@ export default{
       this.setProduct(codeProduct);
       this.emitter.emit('checkPlusButton');
     },
+    //Se encarga de comprobar si se pueden introducir más productos a la cesta o no
     checkButton : function()
     {
       var image = this.$refs.imageProduct;
@@ -215,6 +253,7 @@ export default{
         }
       }
     },
+    //Se encarga actualizar el número de unidades que quedan disponibles para que pueda poner en su cesta el usuario
     reloadProduct(codeProduct) 
     {
       var refUnitsProduct = this.$refs.unitsProduct;
@@ -226,6 +265,8 @@ export default{
         refUnitsProduct.innerHTML = "Unidades: " + product.numUnits;
       }
     },
+    //Se encarga de actualizar la visibilidad de la imagen del producto y el funcionamiento del botón de añadir 
+    // a la cesta en función de si el producto tiene más unidades disponibles para introducir en la cesta o no
     setProduct(codeProduct)
     {
       var refImageProduct = this.$refs.imageProduct;
@@ -246,9 +287,11 @@ export default{
         }
       }
     },
+    //Se encarga de mostrar un mensaje al usuario indicando que no quedan unidades disponibles para el producto y oculta el botón poder insertar más unidades
     setTextNoUnits: function() {
       var unitsProduct = this.$refs.unitsProduct;
-      if(unitsProduct !== undefined && unitsProduct !== null && unitsProduct.getAttribute("numunits") === "0")
+      var refButtonProduct = this.$refs.buttonProduct;
+      if(unitsProduct !== undefined && unitsProduct !== null && refButtonProduct !== undefined && refButtonProduct !== null && unitsProduct.getAttribute("numunits") === "0")
       {
         var codeProduct = unitsProduct.getAttribute("codeproduct");
         var productsInBag = JSON.parse(localStorage.productsInBag);
@@ -257,6 +300,7 @@ export default{
         {
           unitsProduct.innerHTML = "No hay stock";
           unitsProduct.classList.add("bg-danger");
+          refButtonProduct.style.display = "none";
         }
       }
     }
@@ -277,20 +321,20 @@ export default{
 </script>
 
 <template>
-  <div v-if="data.category.idCategory === data.product.idCategory" class='card col-sm-6' style="margin-bottom:'0.5em'"> 
+  <div v-if="data.category.idCategory === data.product.idCategory" class='card col-sm-6' v-bind:style="marginBottomSmall"> 
     <div class='row'>
-      <div class='col-lg-4 col-md-6 col-sm-12 align-self-center' style="text-align: center">
-          <img ref="imageProduct" class='zoom img-product' v-bind:id="'imageProduct' + data.product.codeProduct" v-bind:src="data.product.image" v-bind:alt="data.product.titleProduct" v-bind:title="data.product.titleProduct" v-bind:codeProduct="data.product.codeProduct" style="opacity: 1; margin-top: 1em"/>
-          <p ref="unitsProduct" v-bind:id="'unitsProduct' + data.product.codeProduct" v-bind:codeProduct="data.product.codeProduct" v-bind:numUnits="data.product.numUnits" style="font-size: 0.8em"> Unidades: {{data.product.numUnits}}</p>
+      <div class='col-lg-4 col-md-6 col-sm-12 align-self-center' v-bind:style="textAlignCenter">
+          <img ref="imageProduct" class='zoom img-product' v-bind:id="'imageProduct' + data.product.codeProduct" v-bind:src="data.product.image" v-bind:alt="data.product.titleProduct" v-bind:title="data.product.titleProduct" v-bind:codeProduct="data.product.codeProduct" v-bind:style="styleImage"/>
+          <p ref="unitsProduct" v-bind:id="'unitsProduct' + data.product.codeProduct" v-bind:codeProduct="data.product.codeProduct" v-bind:numUnits="data.product.numUnits" v-bind:style="fontSizeSmall"> Unidades: {{data.product.numUnits}}</p>
           <h3 class='text-primary'>{{data.product.price}} €</h3>
-          <button ref="buttonProduct" v-bind:id="'buttonProduct' + data.product.codeProduct" v-bind:codeProduct="data.product.codeProduct" v-bind:products="JSON.stringify(data.products)" class='btn btn-primary' type='button' @click="addProduct(data.product.codeProduct, data.products, data.productsInBag)" style="width: 100%; margin-bottom: 1em; font-size: 0.8em" title='Añadir a la cesta'>Añadir a <br/> la cesta</button>
+          <button ref="buttonProduct" v-bind:id="'buttonProduct' + data.product.codeProduct" v-bind:codeProduct="data.product.codeProduct" v-bind:products="JSON.stringify(data.products)" class='btn btn-primary' type='button' @click="addProduct(data.product.codeProduct, data.products, data.productsInBag)" v-bind:style="styleButtonAddBag" title='Añadir a la cesta'>Añadir a <br/> la cesta</button>
       </div>
       <div class='card-body col-lg-8 col-md-6 col-sm-12'>
-          <p style="text-align:'center'">
+          <p v-bind:style="textAlignLeft">
               <strong> {{data.product.titleProduct}} </strong>
           </p>
-          <p class='text-muted' style="text-align: left; font-size: 0.8em">{{data.product.codeProduct}}</p>
-          <p style="text-align:'left'; font-size: 0.8em">{{data.product.description}}</p>
+          <p class='text-muted' v-bind:style="stylePTag">{{data.product.codeProduct}}</p>
+          <p v-bind:style="stylePTag">{{data.product.description}}</p>
       </div>
     </div>
   </div>

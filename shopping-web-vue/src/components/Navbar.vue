@@ -24,19 +24,21 @@ export default {
     }
   },
   methods: {
+    //Se encarga de realizar el cierre de sesión
     logout: function() 
     {
       sessionStorage.removeItem('email');
       sessionStorage.removeItem('role');
       window.location.href = "/";
     },
+    //Se encarga de marcar en que página se encuentra el usuario
     setStylePageSelected: function() 
     {
       const pathname = window.location.pathname;
       var homeA = document.getElementById("homeA");
       var newCategoryA = document.getElementById("newCategoryA");
       var newProductA = document.getElementById("newProductA");
-
+      //Se ajusta el estilo de la página seleccionada según la ruta relativa indicada para cada página
       switch(pathname)
       {
         case "/":

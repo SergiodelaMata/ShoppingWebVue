@@ -10,6 +10,20 @@ var data = defineProps({
 export default{
   data() {
     return {
+      textAlignRight: {
+        textAlign: 'right'
+      },
+      displayNone: {
+        display: 'none'
+      },
+      marginTopAndLaterals: {
+        marginTop: '0.5em',
+        marginLeft: '0.5em',
+        marginRight: '0.5em'
+      },
+      fullWidth: {
+        width: '100%'
+      }
     }
   },
   methods: {
@@ -76,14 +90,14 @@ export default{
   <div className='card'>
     <div className='row'>
       <div className='col-sm-12 col-md-6 col-lg-6'>
-        <h5 style="margin-left: 0.5em; margin-top: 0.5em; margin-bottom: 0.5em">Coste Total:</h5>
-        <p ref="productsInBag" style="display:none">{{JSON.stringify(data.productsInBag)}}</p>
+        <h5 v-bind:style="marginTopAndLaterals">Coste Total:</h5>
+        <p ref="productsInBag" v-bind:style="displayNone">{{JSON.stringify(data.productsInBag)}}</p>
       </div>
-      <div className='col-sm-12 col-md-6 col-lg-6' style="textAlign: right">
-        <p ref="totalPrice" style="margin-right: 0.5em; margin-top: 0.5em; margin-bottom: 0.5em"> 0 €</p>
+      <div className='col-sm-12 col-md-6 col-lg-6' v-bind:style="textAlignRight">
+        <p ref="totalPrice" v-bind:style="marginTopAndLaterals"> 0 €</p>
       </div>
-      <div className='col-sm-12 col-md-12 col-lg-12' style="width: 100%">
-        <button ref="buttonTotalCost" className='btn btn-primary' type='button' title='Realizar pedido' @click="this.setPopUp" style="width: 100%">Realizar pedido</button>
+      <div className='col-sm-12 col-md-12 col-lg-12' v-bind:style="fullWidth">
+        <button ref="buttonTotalCost" className='btn btn-primary' type='button' title='Realizar pedido' @click="this.setPopUp" v-bind:style="fullWidth">Realizar pedido</button>
       </div>
     </div>
   </div>

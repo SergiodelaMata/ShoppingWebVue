@@ -19,9 +19,17 @@ var data = defineProps({
 export default{
   data() {
     return {
+      marginTop: {
+        marginTop: '1em'
+      },
+      marginTopAndBottom: {
+        marginTop: '1em',
+        marginBottom: '1em'
+      }
     }
   },
   methods: {
+    //Realiza la actualización del componente de la lista de categorías
     reloadCategoriesList() {
       this.$forceUpdate();
     }
@@ -38,10 +46,10 @@ export default{
 
 <template>
     <div id="containerProducts" class="container card col-lg-8 col-md-12 col-sm-12">
-        <div class="container card d-flex bg-info" style="marginTop:1em">
+        <div class="container card d-flex bg-info" v-bind:style="marginTop">
             <h3>Productos disponibles clasificados por categoría:</h3>
         </div>
-        <div id="categories" class="accordion" style="marginTop: 1em, marginBottom: 1em">
+        <div id="categories" class="accordion" v-bind:style="marginTopAndBottom">
             <Category v-for="category in data.categories" v-bind:category="category" v-bind:products="data.products" v-bind:productsInBag="data.productsInBag"></Category>
         </div>
     </div>

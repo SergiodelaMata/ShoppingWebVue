@@ -10,10 +10,35 @@ var data = defineProps({
 export default {
   data() {
     return {
-      
+      styleButtonSubmit: {
+        marginTop: '1em',
+        marginBottom: '1em'
+      },
+      textAlignCenter: {
+        textAlign: 'center'
+      },
+      styleSubtitle: {
+        textAlign: 'left',
+        marginLeft: '-0.5em',
+        marginRight: '-0.5em'
+      },
+      marginTop: {
+        marginTop: '1em'
+      },
+      marginBottom: {
+        marginBottom: '2em'
+      },
+      lateralMargin: {
+        marginLeft: '2em',
+        marginRight: '2em'
+      },
+      displayNone: {
+        display: 'none'
+      }
     }
   },
   methods: {
+    //Realiza la comprobación y la inserción de la nueva categoría
     categorySubmit: function() {
         var idCategory = this.$refs.idCategory.value;
         var nameCategory = this.$refs.nameCategory.value;
@@ -30,6 +55,7 @@ export default {
             categories.push(newCategory);
             localStorage.setItem('categories', JSON.stringify(categories));
             alert("La nueva categoría ha sido creada.");
+            window.location = '/';
         }
         //En caso contrario, avisa al usuario de que ya existe
         else
@@ -42,25 +68,25 @@ export default {
 </script>
 
 <template>
-    <div class="container d-flex flex-column justify-content-center col-sm-12" style="margin-bottom: 2em">
-        <div class="row" style="margin-left: 2em; margin-right: 2em">
+    <div class="container d-flex flex-column justify-content-center col-sm-12" v-bind:style="marginBottom">
+        <div class="row" v-bind:style="lateralMargin">
             <div id="containerCategory" class="container card col-lg-12 col-md-12 col-sm-12">
-                <div class="container card d-flex bg-info" style="margin-top: 1em">
+                <div class="container card d-flex bg-info" v-bind:style="marginTop">
                     <h3>Formulario de la nueva categoría:</h3>
                 </div>
-                <form id="formCategory" class="form" @submit="categorySubmit">
+                <form id="formCategory" class="form">
                     <div class="form-group container col-sm-12 d-none">
                         <input ref="idCategory" id="idCategory" type="text" v-bind:value="(data.categories.length + 1)" readonly/>
-                        <p ref="categories" style="display:none">{{ data.categories }}</p>
+                        <p ref="categories" v-bind:style="displayNone">{{ data.categories }}</p>
                     </div>
-                    <div class="form-group container col-sm-12" style="margin-top: 1em">
+                    <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 style="text-align: left; margin-left: -0.5em; margin-right: -0.5em"><strong>Nombre de la categoría</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>Nombre de la categoría</strong></h6>
                             <input ref="nameCategory" id="nameCategory" type="text" required/>
                         </div>
                     </div>
-                    <div class="form-group container col-sm-12" style="text-align: center">
-                        <input id="buttonNewCategory" class="btn btn-primary" style="margin-top: 1em; margin-bottom: 1em" type="submit" value="Añadir categoría"/>
+                    <div class="form-group container col-sm-12" v-bind:style="textAlignCenter">
+                        <input id="buttonNewCategory" class="btn btn-primary" v-bind:style="styleButtonSubmit" type="button" @click="categorySubmit" value="Añadir categoría"/>
                     </div>
                 </form>
             </div>

@@ -14,7 +14,31 @@ var data = defineProps({
 export default {
   data() {
     return {
-      
+      styleButtonSubmit: {
+        marginTop: '1em',
+        marginBottom: '1em'
+      },
+      textAlignCenter: {
+        textAlign: 'center'
+      },
+      styleSubtitle: {
+        textAlign: 'left',
+        marginLeft: '-0.5em',
+        marginRight: '-0.5em'
+      },
+      marginTop: {
+        marginTop: '1em'
+      },
+      marginBottom: {
+        marginBottom: '2em'
+      },
+      lateralMargin: {
+        marginLeft: '2em',
+        marginRight: '2em'
+      },
+      displayNone: {
+        display: 'none'
+      }
     }
   },
   methods: {
@@ -33,7 +57,6 @@ export default {
         {
             codeProduct = "0" + codeProduct;
         }
-
         //En caso de no seleccionar ninguna de las categorías disponibles, se avisa al usuario de ello
         if(idCategory === "-")
         {
@@ -55,10 +78,10 @@ export default {
                     "numUnits" : parseInt(numUnits),
                     "image" : image
                 }
-
                 products.push(newProduct);
                 localStorage.setItem('products', JSON.stringify(products));
                 alert("El producto ha sido creado e introducido en su respectiva categoría.");
+                window.location = '/';
             }
             //En caso contrario, se avisa al usuario de que el producto ya se encontraba disponible
             else
@@ -72,58 +95,58 @@ export default {
 </script>
 
 <template>
-    <div class="container d-flex flex-column justify-content-center col-sm-12" style="margin-bottom: 2em">
-        <div class="row" style="margin-left: 2em; margin-right: 2em">
+    <div class="container d-flex flex-column justify-content-center col-sm-12" v-bind:style="marginBottom">
+        <div class="row" v-bind:style="lateralMargin">
             <div id="containerCategory" class="container card col-lg-12 col-md-12 col-sm-12">
-                <div class="container card d-flex bg-info" style="margin-top: 1em">
+                <div class="container card d-flex bg-info" v-bind:style="marginTop">
                     <h3>Formulario del nuevo producto:</h3>
                 </div>
-                <form id="formCategory" class="form" @submit="productSubmit">
+                <form id="formCategory" class="form">
                     <div class="form-group container col-sm-12 d-none">
                         <input ref="codeProduct" id="codeProduct" type="text" v-bind:value="(data.products.length + 1)" readOnly/>
-                        <p ref="products" style="display:none">{{ data.products }}</p>
+                        <p ref="products" v-bind:style="displayNone">{{ data.products }}</p>
                     </div>
-                    <div class="form-group container col-sm-12" style="margin-top: 1em">
+                    <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 style="text-align: left; margin-left: -0.5em; margin-right: -0.5em"><strong>Título del producto</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>Título del producto</strong></h6>
                             <input ref="titleProduct" id="titleProduct" type="text" required/>
                         </div>
                     </div>
-                    <div class="form-group container col-sm-12" style="margin-top: 1em">
+                    <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 style="text-align: left; margin-left: -0.5em; margin-right: -0.5em"><strong>Categoría a la que pertenecerá el producto</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>Categoría a la que pertenecerá el producto</strong></h6>
                             <select ref="selectorCategory" id="selectorCategory">
                                 <option value="-">-</option>
                                 <option v-for="category in data.categories" v-bind:value="category.idCategory">{{category.nameCategory}}</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-group container col-sm-12" style="margin-top: 1em">
+                    <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 style="text-align: left; margin-left: -0.5em; margin-right: -0.5em"><strong>Descripción del producto</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>Descripción del producto</strong></h6>
                             <textarea ref="description" id="description" cols="2000" rows="4"></textarea>
                         </div>
                     </div>
-                    <div class="form-group container col-sm-12" style="margin-top: 1em">
+                    <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 style="text-align: left; margin-left: -0.5em; margin-right: -0.5em"><strong>Precio del producto</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>Precio del producto</strong></h6>
                             <input ref="price" id="price" type="number" min="0" step=".01" required/>
                         </div>
                     </div>
-                    <div class="form-group container col-sm-12" style="margin-top: 1em">
+                    <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 style="text-align: left; margin-left: -0.5em; margin-right: -0.5em"><strong>Número de unidades del producto</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>Número de unidades del producto</strong></h6>
                             <input ref="numUnits" id="numUnits" type="number" min="0" required/>
                         </div>
                     </div>
-                    <div class="form-group container col-sm-12" style="margin-top: 1em">
+                    <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 style="text-align: left; margin-left: -0.5em; margin-right: -0.5em"><strong>URL de la imagen del producto</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>URL de la imagen del producto</strong></h6>
                             <input ref="image" id="image" type="text" required/>
                         </div>
                     </div>
-                    <div class="form-group container col-sm-12" style="text-align: center">
-                        <input id="buttonNewProduct" class="btn btn-primary" type="submit" style="margin-top: 1em; margin-bottom: 1em" value="Añadir producto"/>
+                    <div class="form-group container col-sm-12" v-bind:style="textAlignCenter">
+                        <input id="buttonNewProduct" class="btn btn-primary" type="button" v-bind:style="styleButtonSubmit" @click="productSubmit" value="Añadir producto"/>
                     </div>
                 </form>
             </div>

@@ -18,6 +18,34 @@ var data = defineProps({
 export default{
   data() {
     return {
+      marginTop: {
+        marginTop: '0.5em'
+      },
+      textAlignCenter: {
+        textAlign: 'center'
+      },
+      textAlignLeft: {
+        textAlign: 'left'
+      },
+      displayNone: {
+        display: 'none'
+      },
+      fontSizeSmall: {
+        fontSize: '0.8em'
+      },
+      fontSizeMedium: {
+        fontSize: '1em'
+      },
+      stylePTag: {
+        textAlign: 'left',
+        fontSize: '0.8em'
+      },
+      styleImage: {
+        marginTop: '1em'
+      },
+      borderColorBlack: {
+        borderColor: 'black'
+      },
     }
   },
   methods: {
@@ -179,11 +207,11 @@ export default{
         image.style.opacity = "0.5";
         buttonPlus.disabled = true;
       }
+      this.emitter.emit('reloadProduct', image.getAttribute("codeproduct"));
       this.emitter.emit('setProduct', image.getAttribute("codeproduct"));
       this.emitter.emit('setImageOpacity', image.getAttribute("codeproduct"));
       this.emitter.emit('reloadCategoriesList');
       this.emitter.emit('getTotalPrice');
-
     },
     removeProduct : function(codeProduct, products, productsInBag) {
       var image = this.$refs.imageProduct;
@@ -246,6 +274,7 @@ export default{
         unitsProduct.setAttribute("numunits", productsInBag[index].numUnits);
         unitsProduct.innerHTML = "Unidades: " + productsInBag[index].numUnits;
       }
+      this.emitter.emit('reloadProduct', image.getAttribute("codeproduct"));
       this.emitter.emit('setProduct', image.getAttribute("codeproduct"));
       this.emitter.emit('reloadCategoriesList');
       this.emitter.emit('getTotalPrice');
@@ -287,39 +316,37 @@ export default{
 </script>
 
 <template>
-  <div class='card col-sm-12 col-md-12 col-lg-12' style="margin-top: 0.5em">
+  <div class='card col-sm-12 col-md-12 col-lg-12' v-bind:style="marginTop">
     <div class='row'>
-      <div class='align-self-center col-sm-12 col-md-6 col-lg-5' style="text-align: center">
-        <p ref="productsInBag" v-bind:productsInBag="JSON.stringify(data.productsInBag)" style="display:none"></p>
-        <img ref="imageProduct" class='zoom img-product-bag' v-bind:id="'imageProduct' + data.productInBag.codeproduct" v-bind:src="data.productInBag.image" v-bind:alt="data.productInBag.titleProduct" v-bind:title="data.productInBag.titleProduct" v-bind:codeProduct="data.productInBag.codeProduct" style="margin-top: 1em, opacity: 1"/>
+      <div class='align-self-center col-sm-12 col-md-6 col-lg-5' v-bind:style="textAlignCenter">
+        <p ref="productsInBag" v-bind:productsInBag="JSON.stringify(data.productsInBag)" v-bind:style="displayNone"></p>
+        <img ref="imageProduct" class='zoom img-product-bag' v-bind:id="'imageProduct' + data.productInBag.codeproduct" v-bind:src="data.productInBag.image" v-bind:alt="data.productInBag.titleProduct" v-bind:title="data.productInBag.titleProduct" v-bind:codeProduct="data.productInBag.codeProduct" v-bind:style="styleImage"/>
         <div class='container'>
-          <div class='row' style="margin-top: 0.5em">
+          <div class='row' v-bind:style="marginTop">
             <div class='col-sm-12 col-md-12 col-lg-12'>
-              <p ref="unitsProduct" v-bind:id="'unitsProduct' + data.productInBag.codeProduct" v-bind:numUnits="data.productInBag.numUnits" style="text-align: center; font-size: 1em">Unidades: {{data.productInBag.numUnits}}</p>
-              <button ref="refMinusCodeProduct" class='btn btn-primary col-sm-12 col-md-6 col-lg-6' type='button' title='Eliminar de la cesta' @click="this.removeProduct(data.productInBag.codeProduct, data.products, data.productsInBag)" style="border-color: black">
+              <p ref="unitsProduct" v-bind:id="'unitsProduct' + data.productInBag.codeProduct" v-bind:numUnits="data.productInBag.numUnits" v-bind:style="fontSizeMedium">Unidades: {{data.productInBag.numUnits}}</p>
+              <button ref="refMinusCodeProduct" class='btn btn-primary col-sm-12 col-md-6 col-lg-6' type='button' title='Eliminar de la cesta' @click="this.removeProduct(data.productInBag.codeProduct, data.products, data.productsInBag)" v-bind:style="borderColorBlack">
                 <img class='icon-element' alt='Eliminar una unidad del producto' title='Eliminar una unidad del producto' src="../img/dash.svg"/>
               </button>
-              <button ref="refPlusCodeProduct" class='btn btn-primary col-sm-12 col-md-6 col-lg-6' type='button' title='Agregar a la cesta' v-bind:codeProduct="data.productInBag.codeProduct" v-bind:products="JSON.stringify(data.products)" @click="this.addProduct(data.productInBag.codeProduct, data.products, data.productsInBag)" style="border-color: black">
+              <button ref="refPlusCodeProduct" class='btn btn-primary col-sm-12 col-md-6 col-lg-6' type='button' title='Agregar a la cesta' v-bind:codeProduct="data.productInBag.codeProduct" v-bind:products="JSON.stringify(data.products)" @click="this.addProduct(data.productInBag.codeProduct, data.products, data.productsInBag)" v-bind:style="borderColorBlack">
                 <img class='icon-element' alt='Añadir una unidad del producto' title='Añadir una unidad del producto' src="../img/plus.svg"/>
               </button>
             </div>
-            <h3 class='text-primary' style="text-align: center">{{data.productInBag.price}} €</h3>
+            <h3 class='text-primary' v-bind:style="textAlignCenter">{{data.productInBag.price}} €</h3>
           </div>
         </div>
       </div>
       <div class='card-body col-sm-12 col-md-6 col-lg-7'>
-        <p style="text-align: left">
+        <p v-bind:style="textAlignLeft">
           <strong>{{data.productInBag.titleProduct}}</strong>
         </p>
-        <p class='text-muted' style="font-size: 0.8em; text-align: left">
+        <p class='text-muted' v-bind:style="stylePTag">
           {{data.productInBag.codeProduct}}
         </p>
-        <p style="font-size: 0.8em; text-align: left">
+        <p v-bind:style="stylePTag">
           {{data.productInBag.description}}
         </p>
-        
       </div>
     </div>
   </div>
-
 </template>
