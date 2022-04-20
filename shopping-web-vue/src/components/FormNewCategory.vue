@@ -40,28 +40,33 @@ export default {
   methods: {
     //Realiza la comprobación y la inserción de la nueva categoría
     categorySubmit: function() {
-        var idCategory = this.$refs.idCategory.value;
-        var nameCategory = this.$refs.nameCategory.value;
-        var categories = JSON.parse(this.$refs.categories.innerHTML);
+      var idCategory = this.$refs.idCategory.value;
+      var nameCategory = this.$refs.nameCategory.value;
+      var categories = JSON.parse(this.$refs.categories.innerHTML);
 
-        const listCategories = categories.filter(categories => categories.nameCategory === nameCategory);
-        //Comprueba si la categoría no se encotraba ya disponible, y en tal caso la crea
-        if(listCategories.length === 0)
-        {
-            const newCategory = {
-                "idCategory" : parseInt(idCategory),
-                "nameCategory" : nameCategory
-            }
-            categories.push(newCategory);
-            localStorage.setItem('categories', JSON.stringify(categories));
-            alert("La nueva categoría ha sido creada.");
-            window.location = '/';
-        }
-        //En caso contrario, avisa al usuario de que ya existe
-        else
-        {
-            alert("La categoría introducida ya existe.");
-        }
+      const listCategories = categories.filter(categories => categories.nameCategory === nameCategory);
+      //Comprueba si la categoría no se encotraba ya disponible, y en tal caso la crea
+      if(listCategories.length === 0 && nameCategory !== "")
+      {
+          const newCategory = {
+              "idCategory" : parseInt(idCategory),
+              "nameCategory" : nameCategory
+          }
+          categories.push(newCategory);
+          localStorage.setItem('categories', JSON.stringify(categories));
+          alert("La nueva categoría ha sido creada.");
+          window.location = '/';
+      }
+      //Comprueba si no se ha introducido el nombre de la categoría para avisarle en tal caso
+      else if(nameCategory === "")
+      {
+          alert("No se ha podido crear la categoría. Por favor, compruebe que el nombre de la categoría no esté vacío.");
+      }
+      //En caso contrario, avisa al usuario de que ya existe
+      else
+      {
+          alert("La categoría ya existe. Por favor, compruebe que el nombre de la categoría no esté repetido.");
+      }
     }
   }
 }
@@ -81,7 +86,7 @@ export default {
                     </div>
                     <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 v-bind:style="styleSubtitle"><strong>Nombre de la categoría</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>Nombre de la categoría(*)</strong></h6>
                             <input ref="nameCategory" id="nameCategory" type="text" required/>
                         </div>
                     </div>

@@ -57,10 +57,10 @@ export default {
         {
             codeProduct = "0" + codeProduct;
         }
-        //En caso de no seleccionar ninguna de las categorías disponibles, se avisa al usuario de ello
-        if(idCategory === "-")
+        //Comprueba si todos los campos obligatorios se han introducido
+        if(titleProduct === "" || price === "" || numUnits === "" || image === "" || idCategory === "-")
         {
-            alert("Por favor, introduzca la categoría para este producto.")
+            alert("No se han introducido todos los datos obligatorios. Por favor, revise que ha introducido el título del producto, su precio, su número de unidades, su imagen y su categoría.");
         }
         //En caso contrario, se comprueba si se puede introducir el producto
         else
@@ -108,13 +108,13 @@ export default {
                     </div>
                     <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 v-bind:style="styleSubtitle"><strong>Título del producto</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>Título del producto(*)</strong></h6>
                             <input ref="titleProduct" id="titleProduct" type="text" required/>
                         </div>
                     </div>
                     <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 v-bind:style="styleSubtitle"><strong>Categoría a la que pertenecerá el producto</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>Categoría a la que pertenecerá el producto(*)</strong></h6>
                             <select ref="selectorCategory" id="selectorCategory">
                                 <option value="-">-</option>
                                 <option v-for="category in data.categories" v-bind:value="category.idCategory">{{category.nameCategory}}</option>
@@ -129,19 +129,19 @@ export default {
                     </div>
                     <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 v-bind:style="styleSubtitle"><strong>Precio del producto</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>Precio del producto(*)</strong></h6>
                             <input ref="price" id="price" type="number" min="0" step=".01" required/>
                         </div>
                     </div>
                     <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 v-bind:style="styleSubtitle"><strong>Número de unidades del producto</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>Número de unidades del producto(*)</strong></h6>
                             <input ref="numUnits" id="numUnits" type="number" min="0" required/>
                         </div>
                     </div>
                     <div class="form-group container col-sm-12" v-bind:style="marginTop">
                         <div class="row">
-                            <h6 v-bind:style="styleSubtitle"><strong>URL de la imagen del producto</strong></h6>
+                            <h6 v-bind:style="styleSubtitle"><strong>URL de la imagen del producto(*)</strong></h6>
                             <input ref="image" id="image" type="text" required/>
                         </div>
                     </div>
