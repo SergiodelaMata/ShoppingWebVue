@@ -4,6 +4,6 @@
     "vue": "^2.6.14"
   },
   "devDependencies": {
-    "@vue/devtools": "^6.1.4"
+    "@vue/devtools": "^6.5.0"
   }
 }
